@@ -1,8 +1,10 @@
 package kr.java.run;
 
+import kr.java.func.ForExam;
 import kr.java.func.ForTest;
 import kr.java.func.IfTest;
 import kr.java.func.SwitchTest;
+import kr.java.func.WhileTest;
 
 public class Start {
 
@@ -43,7 +45,40 @@ public class Start {
 	//	forTest.exam1();
 	//	forTest.exam2();
 		
-		forTest.ghdal();
 		
+	// ---22년 12월 02일 강의
+		
+	//	forTest.exam3();
+	//	forTest.exam4();
+		
+		WhileTest wt = new WhileTest();
+		
+	//	wt.test1();
+	//	wt.test2();
+	
+	//	wt.test3();
+		
+	//	wt.exam1();
+	//	wt.exam2();
+		
+	//	wt.exam3();
+	//	wt.exam4();
+	//	wt.exam5();
+		
+		ForExam fe = new ForExam();
+		
+	//	fe.gugudan1();
+	//	fe.gugudan2();
+		
+		fe.star1();
+		fe.star2();
+		fe.star3();
+		fe.star4();
+		fe.star5();
+		fe.star6();
+		fe.star7();
+		fe.star8();
+		fe.star9();
+		fe.star10();
 	}
 }
