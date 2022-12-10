@@ -5,6 +5,9 @@ import java.lang.reflect.Method;
 import kr.or.iei.func.MethodTest2;
 import kr.or.iei.func.MethodTest3;
 import kr.or.iei.func.MethodTest4;
+import kr.or.iei.func.TestClass;
+import kr.or.iei.func.Tv;
+import kr.or.iei.func.Detective;
 import kr.or.iei.func.MethodExam;
 import kr.or.iei.func.MethodTest;
 
@@ -34,13 +37,27 @@ public class Start {
 		
 		MethodExam me = new MethodExam();
 		
-		me.exam1(); //안녕하세요 메소드 예제 1번입니다 출력
-		me.exam2(100); // 매개변수로 받은 값은 100입니다 출력
-		me.exam2(100,200); // 매개변수 두 개의 값은 100과 200이며 두 수의 합은 300입니다 출력
-		String result = me.exam3(100,200,300); //<--값이 뿅 들어가는게 아니라 이 메소드가 실행되는거임...
-		System.out.println(result); 
+//		me.exam1(); //안녕하세요 메소드 예제 1번입니다 출력
+//		me.exam2(100); // 매개변수로 받은 값은 100입니다 출력
+//		me.exam2(100,200); // 매개변수 두 개의 값은 100과 200이며 두 수의 합은 300입니다 출력
+//		String result = me.exam3(100,200,300); //<--값이 뿅 들어가는게 아니라 이 메소드가 실행되는거임...
+//		System.out.println(result); 
 		//매개변수 3개의 값은 100,200,300이며, 세 수의 합은 600입니다 출력
 		
-	}
+		
+		Tv tv = new Tv(); //(내생각)데이터형태 객체교유이름 = new 생성자
+		
+//		tv.play();
+		
+		TestClass tc = new TestClass();
+		
+//		tc.main();
+		
+		Detective dt = new Detective();
+		
+		dt.play();
+		
+		
+	}//메인 메소드
 
 }
