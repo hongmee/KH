@@ -6,6 +6,8 @@ import kr.or.iei.func.CalcInterfaceImpl;
 
 public class CalcMgr {
 
+
+
 	public void main() {
 		
 		//사용자한테 숫자를 입력받아서 계산기 객체에 전달 --> 결과를 받아서 출력

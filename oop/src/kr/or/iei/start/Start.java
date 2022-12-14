@@ -14,6 +14,7 @@ import kr.or.iei.func.TestInterfaceImpl;
 import kr.or.iei.func.Tiger;
 import kr.or.iei.func.Tv;
 import kr.or.iei.func.Animal;
+import kr.or.iei.func.CalcMgr;
 import kr.or.iei.func.Detective;
 import kr.or.iei.func.MethodExam;
 import kr.or.iei.func.MethodTest;
@@ -22,27 +23,27 @@ public class Start {
 	
 	public static void main(String[] args) {
 		
-		MethodTest mt = new MethodTest();
+//		MethodTest mt = new MethodTest();
 		
 //		mt.test1();
 		
-		MethodTest2 mt2 = new MethodTest2();
+//		MethodTest2 mt2 = new MethodTest2();
 		
 //		mt2.main();
 		
 //		mt2.test1();
 //		mt2.test2();
 		
-		MethodTest3 mt3 = new MethodTest3();
+//		MethodTest3 mt3 = new MethodTest3();
 		
 //		mt3.main();
 		
 		
-		MethodTest4 mt4 = new MethodTest4();
+//		MethodTest4 mt4 = new MethodTest4();
 		
 //		mt4.main();
 		
-		MethodExam me = new MethodExam();
+//		MethodExam me = new MethodExam();
 		
 //		me.exam1(); //안녕하세요 메소드 예제 1번입니다 출력
 //		me.exam2(100); // 매개변수로 받은 값은 100입니다 출력
@@ -64,13 +65,13 @@ public class Start {
 	  System.out.println("tv2의 크기 : "+tv2.getInch());
 */	 
 		
-		TestClass tc = new TestClass();
+//		TestClass tc = new TestClass();
 		
 //		tc.main();
 		
-		Detective dt = new Detective();
+//		Detective dt = new Detective();
 		
-		dt.play();
+//		dt.play();
 		
 		
 /*		//다형성 : 부모타입 참조형 변수에 자식타입 객체 주소를 넣는 것.
@@ -118,6 +119,10 @@ public class Start {
 //		TestInterface ti = new TestInterface(); // <--얘도 미완성된 메소드가 한가득이때문에 객체를 만들지못한다
 //		TestInterfaceImpl tii = new TestInterfaceImpl(); // <-- 얘는 가능! 인터페이스를 구현한 클래스를 객체 생성해서 사용
 //		TestInterface ti = new TestInterfaceImpl(); //인터페이스도 다형성을 이용한 부모타입변수로는 사용가능
+		
+		CalcMgr cm = new CalcMgr();
+		cm.main();
+				
 		
 		
 	}//메인 메소드
