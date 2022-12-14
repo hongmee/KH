@@ -1,5 +1,6 @@
 package kr.or.iei.func;
 
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.plaf.synth.SynthScrollPaneUI;
@@ -13,6 +14,7 @@ public class Detective {
 	String[] clue2 = {"○ 베리 : \"저는 보물이 없습니다.\"","○ 데이비드 : \"화이트의 진술은 거짓입니다.\""};
 	String[] clue3 = {"○ 블랙 : \"베리의 말이 맞습니다.\"","○ 단서로 알 수 있는건 총 5명의 진술이다. 그러나, 이 중 2명은 거짓말을 한다."};
 	
+	String[] specialClue = {"● 화이트는 다이아몬드를 가지지 않았습니다.","● 다이아몬드를 가진 사람 스펠링 중에는 'B'가 있습니다."};
 	
 	
 	boolean tape1 = false;
@@ -22,7 +24,7 @@ public class Detective {
 	boolean plusClue1 = false;
 	boolean plusClue2 = false;
 	boolean plusClue3 = false;
-	
+	boolean plusSpecial = false;
 	
 	public void play() {
 		Scanner sc = new Scanner(System.in);
@@ -35,17 +37,18 @@ public class Detective {
 			System.out.println("[3] 탐색하기 ");
 			System.out.println("[4] 라디오 ");
 			System.out.println("[5] 정답 제출 ");
+			System.out.println("[*] 미니 게임");
 			System.out.println("[0] 게임 종료 ");
 			System.out.print("실행 메뉴 선택 > ");
-			int menu = sc.nextInt();
+			char menu = sc.next().charAt(0);
 			
-			if(menu==1 || menu==0) {
-				if(menu==1 && Character) {
+			if(menu==49 || menu==48) {
+				if(menu==49 && Character) {
 					System.out.println("[이미 캐릭터를 생성하셨습니다.]");
 					continue;
 				}
 				menu += 0;
-			}else if(0>menu || 5<menu) {
+			}else if(42!=menu && 48>menu || 53<menu) {
 				System.out.println("지원하지 않는 메뉴입니다.");
 			}else if(!Character){
 				System.out.println("[!!] 캐릭터 생성 후 게임을 이용할 수 있습니다.");
@@ -53,26 +56,28 @@ public class Detective {
 			}
 			
 			switch (menu) {
-			case 1:
+			case 49:
 				addCharacter();
 				break;
-			case 2:
+			case 50:
 				clue();
 				break;
-			case 3:
+			case 51:
 				search();
 				break;
-			case 4:
+			case 52:
 				radio();
 				break;
-			case 5:
+			case 53:
 				boolean game = answer();
 				if(game==false) {
 					return;
 				}
 				break;
-				
-			case 0:
+			case 42:
+				miniGame();
+				break;
+			case 48:
 				System.out.print("\n[진짜 게임 종료하기]숫자 0 입력 [메뉴로 돌아가기]그 외 다른 숫자 입력 :");
 				int end = sc.nextInt();
 				if(end==0) {
@@ -104,34 +109,39 @@ public class Detective {
 		sleep(1000);
 		System.out.println("명탐정 "+name+"는(은) 세계 귀족들의 크루즈 파티에 참석했다.");
 		System.out.println("주최자인 데이비드는 파티를 더욱 재미있게 하기 위해 특별 이벤트를 준비했다.");
-		System.out.println("파티장엔 비밀 관계자 한 명이 일반 참가자인 척 숨어 있으며, ");
-		System.out.println("이 비밀 관계자를 가장 먼저 찾는 사람에게는 고가의 다이아몬드를 경품으로 지급한다. ");
-		System.out.println("비밀 관계자에 대한 정보는 파티장 곳곳에 숨겨져 있으며. 비밀 관계자를 지목할 기회는 \"단 한 번\"이다. ");
-		System.out.println("지금부터 명탐정인 "+name+"의 번뜩이는 추리로 다이아몬드를 차지해보자.");
+		System.out.println("파티장엔 다섯 명의 비밀 요원이 숨어있으며, 그 중 한 명은 다이아몬드를 가지고 있다.");
+		System.out.println("다이아몬드를 가진 비밀 요원을 찾으면, 이벤트 경품으로 다이아몬드를 얻는다.");
+		System.out.println("비밀 관계자에 대한 정보는 파티장 곳곳에 숨겨져 있다.. 비밀 관계자를 지목할 기회는 \"단 한 번\"이다. ");
+		System.out.println("지금부터 명탐정인 "+name+"의 번뜩이는 추리로 누구보다 먼저 다이아몬드를 차지해보자.");
 		
 	}//addCharacter 메소드 끝
 	
 	
 	public void clue() { //단서 보관(출력) 메소드
 		
-		if(!plusClue1 && !plusClue2 && !plusClue3) {
+		if(!plusClue1 && !plusClue2 && !plusClue3 && !plusSpecial) {
 			System.out.println("[ 아직 습득한 단서가 없습니다. 파티장을 탐색하여 단서를 습득하세요. ]");
-		}else {
-			System.out.println("=====[*습득한 단서들입니다]=====");
-			if(plusClue1) {
-				for(int i=0 ; i<clue1.length ; i++) {
-					System.out.println(clue1[i]);
-				}
-			}if(plusClue2) {
-				for(int i=0 ; i<clue2.length ; i++) {
-					System.out.println(clue2[i]);
-				}
-			}if(plusClue3) {
-				for(int i=0 ; i<clue3.length ; i++) {
-					System.out.println(clue3[i]);
-				}
+		}
+		
+		if(plusClue1 || plusClue2 || plusClue3 || plusSpecial) {System.out.println("===== [ *획득한 단서 ] =====");}
+		if(plusClue1) {
+			for(int i=0 ; i<clue1.length ; i++) {
+				System.out.println(clue1[i]);
+			}
+		}if(plusClue2) {
+			for(int i=0 ; i<clue2.length ; i++) {
+				System.out.println(clue2[i]);
+			}
+		}if(plusClue3) {
+			for(int i=0 ; i<clue3.length ; i++) {
+				System.out.println(clue3[i]);
+			}
+		}if(plusSpecial) {
+			for(int i=0 ; i<specialClue.length ; i++) {
+				System.out.println(specialClue[i]);
 			}
 		}
+		
 	}//clue 메소드 끝
 	
 	public void search() { //탐색하기 기능
@@ -158,13 +168,13 @@ public class Detective {
 			System.out.println("끼이익 -...");
 			sleep(800);
 			System.out.println("문을 열고 들어가니, 방 중앙에 세개의 상자가 놓여있다.");
-			System.out.println("그리고 상자에 각각 붙여진 쪽지.");
+			System.out.println("그리고 상자 아래 놓여진 쪽지.");
 			System.out.println("==========================");
 			System.out.println("A : 테이프는 이 상자에 있다.");
 			System.out.println("B : 테이프는 A상자에 없다. ");
 			System.out.println("C : 테이프는 이 상자에 없다.");
 			System.out.println("");
-			System.out.println("*한 개의 쪽지에는 거짓이 쓰여 있다. ");
+			System.out.println("*상자 하나는 거짓말을 하고 있다.");
 			System.out.println("*상자는 방 입장시 1번만 열 수 있습니다.");
 			System.out.println("==========================");
 			boolean bool=true;
@@ -245,7 +255,7 @@ public class Detective {
 			System.out.println("투명한 케이스에 잠금패드가 붙어있다. 케이스 너머로 테이프 하나가 보인다.");
 			sleep(800);
 			System.out.println("====Password Hint====");
-			System.out.println("WON = 3");
+			System.out.println("MON = 3");
 			System.out.println("TUE = 5");
 			System.out.println("WED = 4");
 			System.out.println("THU = ?");
@@ -260,7 +270,7 @@ public class Detective {
 					sleep(500);
 					System.out.println("달칵.");
 					sleep(500);
-					System.out.println("\"열렸다! 숫자가 의미하는 건 영단어의 최소 총 획수였어! THU는 최소 6획으로 쓸 수 있지!\"");
+					System.out.println("\"열렸다! 숫자가 의미하는 건 영단어의 최소 총 획수였어! THE는 최소 6획으로 쓸 수 있지!\"");
 					tape3=true;
 					sleep(500);
 					System.out.println("[테이프3을 습득했습니다. 메뉴로 돌아갑니다.]");
@@ -297,7 +307,7 @@ public class Detective {
 				case 1:
 					if(tape1) {
 						System.out.println("치직-...치직...-");
-						sleep(500);
+						sleep(1000);
 						for(int i=0 ; i<clue1.length ; i++) {
 							System.out.println(clue1[i]);
 						}
@@ -310,7 +320,7 @@ public class Detective {
 				case 2:
 					if(tape2) {
 						System.out.println("치직-...치직...-");
-						sleep(500);
+						sleep(1000);
 						for(int i=0 ; i<clue2.length ; i++) {
 							System.out.println(clue2[i]);
 						}
@@ -323,7 +333,7 @@ public class Detective {
 				case 3:
 					if(tape3) {
 						System.out.println("치직-...치직...-");
-						sleep(500);
+						sleep(1000);
 						for(int i=0 ; i<clue3.length ; i++) {
 							System.out.println(clue3[i]);
 						}
@@ -341,12 +351,48 @@ public class Detective {
 		
 	}//radio 메소드
 	
+	public void miniGame() {
+		Scanner sc = new Scanner(System.in);
+		Random r = new Random();
+		System.out.println("[ M I N I G A M E ]");
+		System.out.println("단서를 열심히 모아도, 도저히 추리하기 어려운 플레이어를 위한 미니게임입니다.");
+		System.out.println("미니게임에서 승리하면 단서함에 특별하고 강력한 단서가 추가됩니다.");
+		System.out.println("(*플레이 방법) 1~20까지의 범위 중에 컴퓨터와 동일한 숫자를 외치면 승리.");
+		System.out.println("================");
+		boolean bool = true;
+		int userNum = 0;
+		while(bool) {
+			System.out.print("(player)숫자를 입력하세요 : ");
+			userNum = sc.nextInt();
+			if(userNum<=0 || 20<userNum) {
+				System.out.println("범위 내의 숫자를 입력하세요.");
+				continue;
+			}
+			break;
+		}
+		int comNum = r.nextInt(20)+1;
+		System.out.println("=====[미니게임 결과]=====");
+		System.out.println("(player) 선택 숫자 : "+userNum);
+		System.out.println("(COM) 선택 숫자 : "+comNum);
+		if(userNum == comNum) {
+			System.out.println("플레이어 승리! 축하합니다!");
+			System.out.println("단서함에 특별 단서가 추가되었습니다!");
+			plusSpecial = true;
+			
+		}else {
+			System.out.println("FAILD");
+			System.out.println("메뉴 화면으로 돌아갑니다.");
+			return;
+		}
+	}//miniGame메소드 끝
+	
+	
 	
 	public boolean answer() {//5. 정답 제출 기능
 		Scanner sc = new Scanner(System.in);
 		
 		if(plusClue1==false || plusClue2==false || plusClue3==false) {
-			System.out.println("[모든 단서를 찾아야 비밀 관계자를 지목할 수 있습니다.]");
+			System.out.println("[모든 단서를 찾아야 비밀 요원을 지목할 수 있습니다.]");
 		}else if(tape1 && tape2 && tape3){
 			sleep(1000);
 			System.out.println("\"..정답을 알았어!");
@@ -363,26 +409,34 @@ public class Detective {
 			sleep(500);
 			boolean bool = true;
 				while(bool) {
-					System.out.println("..이 중 다이아몬드를 가진 사람은... \"(숫자로 지목하세요): ");
+					System.out.println("..이 중 다이아몬드를 가진 비밀요원은... \"(숫자로 지목하세요): ");
 					int result = sc.nextInt();
 						if(result==4) {
-							System.out.println("블랙이야!");
-							System.out.println("축하합니다! 다이아몬드를 받았어요! 와! 너무 예뻐! 필요할때 팔아야지!");
-							return false;
-						}else if(result!=4 && 0<result && result<6){
-							System.out.println("\"당신이 다이아몬드를 가진 비밀 관계자지?\"");
+							System.out.println("\"블랙이야!\"");
 							for(int i=0 ; i<3 ; i++) {
 								System.out.print(". ");
 								sleep(500);
 							}
-							System.out.println("잠깐의 침묵이 흐르고, "+name+"이(가) 지목한 사람이 대답했다.");
+							System.out.println("축하합니다!");
+							System.out.println("우와!!!!!! 다이아몬드를 가진 비밀요원은 블랙이었다!!!!!!");
+							System.out.println(name+"은 추리에 멋지게 성공했다!!!!!!!!!!!!!");
+							System.out.println("~~~.'*'.☆축하합니다☆.'*'.~~~~");
+							return false;
+						}else if(result!=4 && 0<result && result<6){
+							String npcName = npcName(result);
+							System.out.println("\"당신이 비밀요원이지?\"");
+							for(int i=0 ; i<3 ; i++) {
+								System.out.print(". ");
+								sleep(500);
+							}
+							System.out.println("잠깐의 침묵이 흐르고, "+npcName+"이(가) 대답했다.");
 							sleep(800);
-							System.out.println("\"죄송합니다만. 저는 다이아몬드를 가지고 있지 않습니다. "+name+"씨는 이제 비밀 관계자를 지목하실 수 없습니다.");
+							System.out.println("\"죄송합니다만. 저는 다이아몬드가 없습니다. "+name+"씨는 이제 비밀요원을 지목하실 수 없습니다.");
 							sleep(500);
 							System.out.println("이벤트는 끝났지만. 모쪼록 남은 파티를 즐겨 주시길...\"");
 							sleep(1000);
-							System.out.println("이럴 수가... 명탐정인 내가 추리에 실패하다니. 다이아몬드의 기회도 잃었다. ");
-							String[] gameOver = {"G","A","M","E"," ","O","V","E","R"};
+							System.out.println("이럴 수가... 명탐정인 내가 추리에 실패하다니. 다이아몬드를 얻을 기회도 잃었다. ");
+							String[] gameOver = {"G","A","M","E"," ","O","V","E","R"};	
 							for(int i = 0 ; i<gameOver.length ; i++) {
 								System.out.print(gameOver[i]+" ");
 								sleep(500);
@@ -397,6 +451,23 @@ public class Detective {
 	}//answer메소드 종료
 	
 	
+	
+	
+	
+	
+	public String npcName(int num) {
+		switch (num) {
+		case 1:
+			return "화이트";
+		case 2:
+			return "베리";
+		case 3:
+			return "데이비드";
+		case 5:
+			return "셰이디";
+		}
+		return " ";
+	}
 	
 	
 	public void sleep(int time) {//시간처리

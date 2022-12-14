@@ -15,10 +15,63 @@ public class Tv {
 	 * */
 	
 
-	int inch; //TV크기
-	boolean power; //전원
-	int ch; //채널
-	int vol; //볼륨          // <--- 전역변수!! 
+	private int inch; //TV크기
+	private boolean power; //전원
+	private int ch; //채널
+	private int vol; //볼륨          // <--- 전역변수!! 
+	
+	
+	//[필수] 기본생성자 생성
+	public Tv() {
+	 //기본생성자라고 꼭 비워들 필요는 없고 필요에 따라 소스코드를 써 준다~~~
+	}
+	//[필수] 매개변수가 있는 생성자(오버로딩 활용하기). 생성자 메소드의 이름은 클래스와 같아야 하기 때문에 무조건 오버로딩을 활용해 줘야 한다 !!
+	public Tv(int inch, boolean power, int ch, int vol) {
+		this.inch = inch;
+		this.power = power;
+		this.ch = ch;
+		this.vol = vol;
+	}
+	
+	public Tv(int inch) { //[선택] 인치를 받아서 해주는 생성자
+		this.inch = inch;
+	}
+	
+	
+	
+	
+	//변수에 대한 getter 생성
+	public int getVol() {
+		return vol;
+	}
+	
+	public int getCh() {
+		return ch;
+	}
+	
+	public boolean isPower() { //자료형이 boolean일때 getter를 조금 수정해줘야 한다~~ 예외사항임~~~~
+		//메소드 이름을 get->is라고 바꿔주세요
+		return power;
+	}
+	
+	public int getInch() {
+		return inch;
+	}
+	
+	//변수에 대한 setter 생성
+	public void setVol(int vol) {//<--setter는 되돌려 줄 값이 없다(void). 값을 받으면 그 값으로 변수를 변경해주고 끝임
+		this.vol = vol; //<--전역변수와 매개변수는 변수이름이 같아도 가능하다. 구분해주고 싶을땐 전역변수쪽에 this.를 붙여준다
+	}
+	
+	public void setCh(int ch) {
+		this.ch = ch;
+	}
+	
+	public void setPower(boolean power) {
+		this.power = power;
+	}
+
+
 	
 	
 	public void play() {
@@ -152,6 +205,11 @@ public class Tv {
 			System.out.println("** 현재 최소 볼륨(0) 입니다. 더 이상 내릴 수 없습니다.");
 		}
 	}//volDown
+	
+	
+	
+	
+	
 	
 	
 	
